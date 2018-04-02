@@ -46,7 +46,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       </h5>
 
         <p class="w3-text-grey">Credit must be given to Abdullah Sadiq over at the Arduino Project Hub as his project Alz Assistant provided us with a lof of information
-            and code. You can view Abdullah's project <a target="_BLANK" href="https://create.arduino.cc/projecthub/abdullahsadiq/alzheimer-s-assistant-a017ad?f=1">HERE</a>.
+            and code. For our project we needed to modify some sections, code and added a buzzer for sound alerts You can view Abdullah's project 
+            <a target="_BLANK" href="https://create.arduino.cc/projecthub/abdullahsadiq/alzheimer-s-assistant-a017ad?f=1">HERE</a>.
         </p>
     </div>
 
@@ -74,57 +75,124 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     display: table;
     clear: both;
 }
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    width: 400px; 
+    height: 630px;
+}
 </style>
 <!-- Second Grid -->
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
   <div class="w3-content">
 
-      <h1 align="center">Tutorial Time</h1>
-      <h5>Below we will take your through the steps involved in recreating this project. In total it took us a couple of weeks part-time to complete the project. If we had
-          been given more time, we would have worked on a incorporating the hardware into an actual wristwatch type system. One idea we had was to contact the designCORE 
-          team in our college who could possible help us with designing and creating a suitable wristwatch enclosure. The hardware components required to build this
-          project cost us €200. </h5><br/>
+    <h1 align="center">Tutorial Time</h1>
+    <h5>Below we will take your through the steps involved in recreating this project. In total it took us a couple of weeks part-time to complete the project. If we had
+        been given more time, we would have worked on a incorporating the hardware into an actual wristwatch type system. One idea we had was to contact the designCORE 
+        team in our college who could possible help us with designing and creating a suitable wristwatch enclosure. The hardware components required to build this
+        project cost us €200. </h5><br/>
 
-      <h1>Hardware Used</h1>
-      Below is the list of the hardware components that we used for our project. We purchased these components from the closest online retailer in order to receive the 
-      components as quickly as possible. 
-      <div class="row">
-        <div class="column">
-          <ul class="a">
-            <li>HC-05 Bluetooth Module</li>
-            <li>Nokia 5110 LCD</li>
-            <li>Infineon Sensor Hub Nano</li>
-            <li>Arduino MKR1000</li>
-            <li>Breadboard (generic)</li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul class="a">
-            <li>Jumper wires (generic)</li>
-            <li>Buzzer</li>
-            <li>Soldering Iron</li>
-            <li>Arduino IDE</li>
-            <li>Blynk IoT Platform</li>
-          </ul>
-        </div>
+    <h1>Hardware Used</h1>
+    Below is the list of the hardware components that we used for our project. We purchased these components from the closest online retailer in order to receive the 
+    components as quickly as possible. 
+    <div class="row">
+      <div class="column">
+        <ul class="a">
+          <li>HC-05 Bluetooth Module</li>
+          <li>Nokia 5110 LCD</li>
+          <li>Infineon Sensor Hub Nano</li>
+          <li>Arduino MKR1000</li>
+          <li>Breadboard (generic)</li>
+        </ul>
       </div>
+      <div class="column">
+        <ul class="a">
+          <li>Jumper wires (generic)</li>
+          <li>Buzzer</li>
+          <li>Soldering Iron</li>
+          <li>Arduino IDE</li>
+          <li>Blynk IoT Platform</li>
+        </ul>
+      </div>
+    </div><br/>
 
      
-      <h1>Step #1</h1>
-      <h5>Programming the HC-05 Bluetooth module to connect/pair with our Sensor by default.</h5>
-      <img src="./images/photos/IMG_20180328_121058.jpg" style="width: 70%; height: 70%"/>
-      <p class="w3-text-grey">We needed to make sure that when we power on the Sensor, our HC-05 bluetooth module would search for the sensors MAC address and connect 
-        to it by default. To do this we needed to wire up our HC-05 bluetooth module to our audrino and we needed to flash a small arduino sketch to the arduino which 
-        allows us to communicate with the HC-05 bluetooth module and sent commands to it via "AT mode". 
-        <a target="_BLANK" href="http://www.martyncurrey.com/arduino-with-hc-05-bluetooth-module-at-mode/">
-        "AT command mode allows you to interrogate the Bluetooth module and to change some of the settings; things like the name, the baud rate, whether or not it 
-        operates in slave mode or master mode."</a>
+    <h1>Step #1</h1>
+    <h5>Programming the HC-05 Bluetooth module to connect/pair with our Sensor by default.</h5>
+    <p class="w3-text-grey">
+      We first need to make sure that when we power on the Sensor, our HC-05 bluetooth module will search for the sensors MAC address and connect 
+      to it by default. To do this we need to wire up our HC-05 bluetooth module to our audrino and we need to flash a small arduino sketch to the arduino which 
+      allows us to communicate with the HC-05 bluetooth module and send commands to it via "AT mode". AT command mode allows you to interrogate the Bluetooth module 
+      and to change some of the settings; things like the name, the baud rate, whether or not it operates in slave mode or master mode.</a>
+    </p>
+    <p class="w3-text-grey">
+      To do this, we first need to flash a sketch/code to the arduino that will allow us to send and receive AT commands from the arduino:
+    <a target="_BLANK" href="./ATSketch.html">CODE LINK</a>
+    </p>
+    <p class="w3-text-grey">
+      Next we need to wire the HC-05 to the Arduino. You can copy the wiring diagram below to achieve this.
+      <img src="./images/hc05WireDiagram.jpeg" align="center" style="padding:10px 0px 10px 0px;height:60%;width:100%;"/>
+    </p>
+    <p class="w3-text-grey">
+      Now we need to put the HC-05 bluetooth module into AT mode. To do this we need to hold the power button on the HC-05 while we plug in its VCC/Power cable. Once 
+      the red LED displays on the HC-05 you can release the power button on the HC-05. You can test that the HC-05 is in AT mode by opening your Serial Monitor and 
+      sending the 
+    </p>
+    <p class="w3-text-grey">
+      Now we can open the audrino IDEs serial monitor and test if we can communicate with the HC-05 bluetooth module. To test if you are correctly in AT mode, simply
+      type AT into the serial monitor and click Send. If OK is returned, you are good to continue. If not you are not successfully in AT mode and need to repeat the 
+      steps above. In the image you can see the full list of AT commands that need to be sent and the expected reply.
+      <img src="./images/ATCmds.png" style="padding:10px 0px 10px 0px;height:60%;width:100%;" align="center"/>
+      
+      <ul class="a">
+          Basically, we need to change these settings in AT mode:
+        <li>AT+RMAAD (Delete all currently paired devices)</li>
+        <li>AT+CMODE=0 (Get it to connect only to a specified Bluetooth MAC address)</li>
+        <li>AT+ROLE=1 (Set bluetooth connection mode to ‘Master’)</li>
+        <li>AT+BIND=1234,56,abcdef (Replace with the MAC address of the Sensor Hub Nano in this format)</li>
+        <li>AT+UART=115200,0,0 (Set the baud rate to 115200, stop bit to be 2 bits and even parity)</li>
+      </ul>
+    </p>
+    <p class="w3-text-grey">
+      Once this is done and you have successfully received an OK response from each command, your HC-05 will now connect toy uor sensor by default when powered on.
+    </p><br/>
+
+    <h1>Step #2</h1>
+    <h5>Installing the Blynk Application</h5>
+    Next, Download the Blynk application for your iOS or Android device from here, and scan the QR code through the Blynk app. It will automatically 
+    replicate the basic widgets necessary at this time.
+    <br/>
+    <img src="./images/QRCode.jpeg" style="height:30%;width:40%;" align="center" />
+    <br/>
+    <br/>
+    <br/>
+    <h1>Step #3</h1>
+    <h5>Uploading the main code and install the required libraries</h5>
+    <p class="w3-text-grey">
+      We were required to install the following three libraries via the ardruino IDE in order for our code th compile correctly:
+      <ul class="a">
+        <li><a href="https://github.com/olikraus/u8glib">https://github.com/olikraus/u8glib</a></li>
+        <li><a href="https://github.com/PaulStoffregen/Time">https://github.com/PaulStoffregen/Time/a></li>
+        <li><a href="https://github.com/blynkkk/blynk-library">https://github.com/blynkkk/blynk-library</a></li>
+      </ul>
+      <p class="w3-text-grey">We can now flash our main project code to our arduino. If you installed the above libraries correctly, there should be no completion errors.
       </p>
-      <p class="w3-text-grey">
-      To do this, we flashed this sketch/code to the arduino:
-      <a target="_BLANK" href="./ATSketch.html">CODE</a>
-      </p>
-    </div>
+      <a target="_BLANK" href="./MainSketch.html">CODE LINK</a>
+    </p><br/><br/>
+
+    <h1>Step #4</h1>
+    <h5>Wire up the components</h5>
+    <p class="w3-text-grey">
+      It is now time to wire up the components, you can follow the following wiring diagram:
+    </p>
+    <img src="./images/final-wire.png" align="center" style="padding:10px 0px 10px 0px;height:60%;width:100%;"/>
+    <p class="w3-text-grey">
+      If everything is flashed and wired up correctly, you should get a similar result when you power on the arduino
+    </p>
+  </div>
 </div>
 
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
